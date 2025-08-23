@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ImmutableFeed - Aptos Web3 Hackathon Project
 
-## Getting Started
+Enterprise-grade audit trails for ActivityPub posts using Aptos blockchain, AI verification, and zero-knowledge proofs.
 
-First, run the development server:
+## 🚀 Live Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Main Dashboard**: [View Demo](/)
+- **SDK Integration**: [View SDK](/sdk)
+- **Live SDK Demo**: [Try SDK](/sdk-demo)
+- **Move Contract Demo**: [Petra Wallet](/move-demo)
+- **Financial News Demo**: [FinanceWire](/financial-news)
+
+## 🏗️ Project Structure
+
+```
+aptos-audit/
+├── app/                    # Next.js app router pages
+├── components/             # React components
+├── lib/                   # Utility libraries
+├── sdk/                   # ImmutableFeed SDK package
+├── move/                  # Aptos Move smart contracts
+└── public/               # Static assets
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Quick Start
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
+- Node.js 18+
+- Petra Wallet (for blockchain features)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Installation
+```bash
+git clone <repository>
+cd aptos-audit
+npm install
+```
 
-## Learn More
+### Development
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Build for Production
+```bash
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Deploy Static Site
+```bash
+npm run export
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📦 SDK Usage
 
-## Deploy on Vercel
+```typescript
+import { createLedger } from '@immutablefeed/sdk';
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+// Initialize ledger
+const ledger = createLedger();
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+// Create audit record
+const record = await ledger.createRecord(
+  "Hello, immutable world!",
+  "alice@company.com",
+  { platform: "mastodon", postId: "123" }
+);
+
+// Verify record
+const verification = await ledger.verifyRecord(record.id);
+console.log('Valid:', verification.isValid);
+```
+
+## 🔗 Move Smart Contract
+
+The project includes a complete Move smart contract for immutable ledger operations:
+
+- `ledger::add_entry` - Create immutable records
+- `ledger::mark_deleted` - Mark entries as deleted (preserves history)
+- `ledger::get_snapshot_at_time` - Point-in-time reconstruction
+
+## 🎯 Features
+
+- ✅ **Immutable Audit Trails** - Cryptographically secured records
+- ✅ **Petra Wallet Integration** - Real blockchain transactions
+- ✅ **Point-in-Time Snapshots** - Regulatory compliance
+- ✅ **Hash Chain Verification** - Tamper-proof integrity
+- ✅ **Enterprise SDK** - Easy integration for developers
+- ✅ **Dark Mode Support** - Professional UI/UX
+- ✅ **Real-time Updates** - Live blockchain monitoring
+
+## 🏆 Hackathon Highlights
+
+1. **Complete Ecosystem** - SDK + Demo + Smart Contract
+2. **Real Blockchain Integration** - Live Aptos transactions
+3. **Enterprise Use Case** - Financial compliance solution
+4. **Professional UI/UX** - Production-ready interface
+5. **Scalable Architecture** - Modular and extensible
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+```bash
+npm run build
+# Deploy to Vercel
+```
+
+### Static Hosting
+```bash
+npm run export
+# Upload 'out' folder to any static host
+```
+
+### Environment Variables
+```
+NEXT_PUBLIC_APTOS_NETWORK=testnet
+NEXT_PUBLIC_APTOS_NODE_URL=https://fullnode.testnet.aptoslabs.com/v1
+NEXT_PUBLIC_CONTRACT_ADDRESS=0x1
+```
+
+## 📄 License
+
+MIT License - Built for Aptos Web3 Hackathon 2024

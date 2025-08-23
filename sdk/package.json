@@ -1,0 +1,22 @@
+{
+  "name": "@immutablefeed/sdk",
+  "version": "1.0.0",
+  "description": "Enterprise audit trail SDK for ActivityPub posts on Aptos blockchain",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "keywords": ["aptos", "blockchain", "audit", "activitypub", "compliance"],
+  "author": "ImmutableFeed Team",
+  "license": "MIT",
+  "dependencies": {
+    "aptos": "^1.21.0",
+    "crypto-js": "^4.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/crypto-js": "^4.2.2"
+  }
+}

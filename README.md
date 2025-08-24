@@ -158,4 +158,4 @@ NEXT_PUBLIC_CONTRACT_ADDRESS=0x1
 
 ## 📄 License
 
-MIT License - Built for Aptos Web3 Hackathon 2024
+MIT License - Built for Aptos Web3 Hackathon 2025

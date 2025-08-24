@@ -9,6 +9,10 @@
 **Our Solution**: Immutable blockchain audit trail that captures every post, edit, and deletion with cryptographic proof, enabling point-in-time reconstruction for legal proceedings.
 
 ## 🚀 Live Demo & Features
+<img width="1902" height="907" alt="image" src="https://github.com/user-attachments/assets/1fb024fb-05f6-4b06-8e2b-3fdf2c9c5ffc" />
+
+<img width="1892" height="912" alt="image" src="https://github.com/user-attachments/assets/9f897d7f-5e14-4fe0-85ff-3adfc3274c0c" />
+
 
 - **Corporate Dashboard**: [Main Audit Interface](/) - Real-time monitoring and compliance
 - **Financial News Demo**: [FinanceWire](/financial-news) - Live example with Petra wallet

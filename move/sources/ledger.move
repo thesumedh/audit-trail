@@ -59,7 +59,15 @@ module immutable_feed::ledger {
         metadata: String,
     ) acquires LedgerStore {
         let account_addr = signer::address_of(account);
-        assert!(exists<LedgerStore>(account_addr), E_NOT_INITIALIZED);
+        
+        // Auto-initialize if not exists
+        if (!exists<LedgerStore>(account_addr)) {
+            move_to(account, LedgerStore {
+                entries: vector::empty<LedgerEntry>(),
+                next_id: 1,
+                total_entries: 0,
+            });
+        };
 
         let store = borrow_global_mut<LedgerStore>(account_addr);
 
@@ -92,7 +100,15 @@ module immutable_feed::ledger {
         metadata: String,
     ) acquires LedgerStore {
         let account_addr = signer::address_of(account);
-        assert!(exists<LedgerStore>(account_addr), E_NOT_INITIALIZED);
+        
+        // Auto-initialize if not exists
+        if (!exists<LedgerStore>(account_addr)) {
+            move_to(account, LedgerStore {
+                entries: vector::empty<LedgerEntry>(),
+                next_id: 1,
+                total_entries: 0,
+            });
+        };
 
         let store = borrow_global_mut<LedgerStore>(account_addr);
 

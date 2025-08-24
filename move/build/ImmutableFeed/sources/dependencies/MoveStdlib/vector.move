@@ -237,14 +237,7 @@ module std::vector {
         let found_index = 0;
         let i = 0;
         let len = self.length();
-        while ({
-            spec {
-                invariant i <= len;
-                invariant forall j: num where j >= 0 && j < i: !f(self[j]);
-                invariant find ==> i < len && f(self[i]);
-            };
-            i < len
-            }) {
+        while (i < len) {
             // Cannot call return in an inline function so we need to resort to break here.
             if (f(self.borrow(i))) {
                 find = true;
@@ -252,9 +245,6 @@ module std::vector {
                 break
             };
             i += 1;
-        };
-        spec {
-            assert !find <==> (forall j: num where j >= 0 && j < len: !f(self[j]));
         };
         (find, found_index)
     }

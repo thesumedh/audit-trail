@@ -73,7 +73,7 @@ CMD ["npm", "start"]
 # Required
 NEXT_PUBLIC_APTOS_NETWORK=testnet
 NEXT_PUBLIC_APTOS_NODE_URL=https://fullnode.testnet.aptoslabs.com/v1
-NEXT_PUBLIC_CONTRACT_ADDRESS=0x52a733d31afb82c3bdfa9a3bc85a9e44daadd2665860f2fa7064e559e4161e02
+NEXT_PUBLIC_CONTRACT_ADDRESS=0x90dffdae708ad657475ff837177d9a57d0d4248cde9fa3f2ce81a0145c4aa9a6
 
 # Optional
 NEXT_PUBLIC_APP_NAME=CorporateAuditChain

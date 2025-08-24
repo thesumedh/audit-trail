@@ -147,7 +147,7 @@ ${i + 1}. ${new Date(mod.timestamp).toISOString()}
         // Create a transaction payload for Aptos
         const transactionPayload = {
           type: "entry_function_payload",
-          function: "0x52a733d31afb82c3bdfa9a3bc85a9e44daadd2665860f2fa7064e559e4161e02::ledger::mark_deleted",
+          function: "0x90dffdae708ad657475ff837177d9a57d0d4248cde9fa3f2ce81a0145c4aa9a6::ledger::mark_deleted",
           type_arguments: [],
           arguments: [entryId, newContent, JSON.stringify({ modified: true, timestamp: Date.now() })]
         };
@@ -194,7 +194,7 @@ ${i + 1}. ${new Date(mod.timestamp).toISOString()}
       // Create a transaction payload for Aptos
       const transactionPayload = {
         type: "entry_function_payload",
-        function: "0x52a733d31afb82c3bdfa9a3bc85a9e44daadd2665860f2fa7064e559e4161e02::ledger::add_entry",
+        function: "0x90dffdae708ad657475ff837177d9a57d0d4248cde9fa3f2ce81a0145c4aa9a6::ledger::add_entry",
         type_arguments: [],
         arguments: [content, "", JSON.stringify({ articleId, author, created: Date.now() })]
       };

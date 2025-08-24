@@ -39,7 +39,7 @@ declare global {
 
 export function PetraWalletDemo() {
   const [connected, setConnected] = useState(true)
-  const [address, setAddress] = useState("0x52a733d31afb82c3bdfa9a3bc85a9e44daadd2665860f2fa7064e559e4161e02")
+  const [address, setAddress] = useState("0x90dffdae708ad657475ff837177d9a57d0d4248cde9fa3f2ce81a0145c4aa9a6")
   const [entries, setEntries] = useState<LedgerEntry[]>([])
   const [newContent, setNewContent] = useState("")
   const [isCreating, setIsCreating] = useState(false)
@@ -93,8 +93,24 @@ export function PetraWalletDemo() {
   }
 
   const initializeLedger = async () => {
-    // Mock initialization for demo
-    console.log("Ledger initialized (demo mode)")
+    if (!window.petra) return
+    
+    try {
+      console.log("Initializing ledger for address:", address)
+      const initTransaction = {
+        type: "entry_function_payload",
+        function: "0x90dffdae708ad657475ff837177d9a57d0d4248cde9fa3f2ce81a0145c4aa9a6::ledger::initialize",
+        arguments: [],
+        type_arguments: []
+      }
+      
+      const result = await window.petra.signAndSubmitTransaction(initTransaction)
+      console.log("Ledger initialized successfully:", result)
+      alert("Ledger initialized successfully!")
+    } catch (error) {
+      console.error("Failed to initialize ledger:", error)
+      alert(`Failed to initialize ledger: ${error.message || error}`)
+    }
   }
 
   const generateHash = (content: string): string => {
@@ -122,21 +138,21 @@ export function PetraWalletDemo() {
         created_at: new Date().toISOString()
       })
 
-      // Testnet transaction for demo
-      const mockTx = {
+      // Real Move contract transaction
+      const transaction = {
         type: "entry_function_payload",
-        function: "0x1::coin::transfer",
-        arguments: ["0x52a733d31afb82c3bdfa9a3bc85a9e44daadd2665860f2fa7064e559e4161e02", "1000"],
-        type_arguments: ["0x1::aptos_coin::AptosCoin"]
+        function: "0x90dffdae708ad657475ff837177d9a57d0d4248cde9fa3f2ce81a0145c4aa9a6::ledger::add_entry",
+        arguments: [contentHash, previousHash, metadata],
+        type_arguments: []
       }
 
-      const result = await window.petra.signAndSubmitTransaction(mockTx)
+      const result = await window.petra.signAndSubmitTransaction(transaction)
       
       // Create local entry for immediate UI update
       const newEntry: LedgerEntry = {
         id: `${Date.now()}`,
         content_hash: contentHash,
-        author: address || "0x52a733d31afb82c3bdfa9a3bc85a9e44daadd2665860f2fa7064e559e4161e02",
+        author: address || "0x90dffdae708ad657475ff837177d9a57d0d4248cde9fa3f2ce81a0145c4aa9a6",
         timestamp: Date.now(),
         previous_hash: previousHash,
         is_deleted: false,
@@ -166,15 +182,15 @@ export function PetraWalletDemo() {
         deleted_at: new Date().toISOString()
       })
 
-      // Testnet transaction for demo
-      const mockTx = {
+      // Real Move contract transaction for deletion
+      const deleteTransaction = {
         type: "entry_function_payload",
-        function: "0x1::coin::transfer",
-        arguments: ["0x52a733d31afb82c3bdfa9a3bc85a9e44daadd2665860f2fa7064e559e4161e02", "1000"],
-        type_arguments: ["0x1::aptos_coin::AptosCoin"]
+        function: "0x90dffdae708ad657475ff837177d9a57d0d4248cde9fa3f2ce81a0145c4aa9a6::ledger::mark_deleted",
+        arguments: [entryId, newContentHash, metadata],
+        type_arguments: []
       }
 
-      const result = await window.petra.signAndSubmitTransaction(mockTx)
+      const result = await window.petra.signAndSubmitTransaction(deleteTransaction)
 
       // Update local state
       setEntries(prev => prev.map(entry => 
@@ -187,7 +203,7 @@ export function PetraWalletDemo() {
       const deletionEntry: LedgerEntry = {
         id: `${Date.now()}`,
         content_hash: newContentHash,
-        author: address || "0x52a733d31afb82c3bdfa9a3bc85a9e44daadd2665860f2fa7064e559e4161e02",
+        author: address || "0x90dffdae708ad657475ff837177d9a57d0d4248cde9fa3f2ce81a0145c4aa9a6",
         timestamp: Date.now(),
         previous_hash: "",
         is_deleted: false,
@@ -275,6 +291,17 @@ export function PetraWalletDemo() {
 
         {connected && (
           <>
+            <div className="flex gap-2 mb-4">
+              <Button 
+                onClick={initializeLedger} 
+                variant="outline"
+                className="bg-blue-50 hover:bg-blue-100 text-blue-700 border-blue-200"
+              >
+                <Database className="w-4 h-4 mr-2" />
+                Initialize Ledger
+              </Button>
+            </div>
+            
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
               <Card className="bg-card/80 backdrop-blur-sm border-border/50">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">

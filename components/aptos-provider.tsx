@@ -70,7 +70,7 @@ export function AptosProvider({ children }: { children: React.ReactNode }) {
         setAccount(demoAccount)
         setConnected(true)
         setPetraAccount({
-          address: "0x52a733d31afb82c3bdfa9a3bc85a9e44daadd2665860f2fa7064e559e4161e02",
+          address: "0x90dffdae708ad657475ff837177d9a57d0d4248cde9fa3f2ce81a0145c4aa9a6",
           publicKey: "demo_public_key"
         })
 
@@ -120,7 +120,7 @@ export function AptosProvider({ children }: { children: React.ReactNode }) {
   const getAddress = (): string => {
     if (petraAccount) return petraAccount.address
     if (account) return account.address().hex()
-    return "0x52a733d31afb82c3bdfa9a3bc85a9e44daadd2665860f2fa7064e559e4161e02"
+    return "0x90dffdae708ad657475ff837177d9a57d0d4248cde9fa3f2ce81a0145c4aa9a6"
   }
 
   return (

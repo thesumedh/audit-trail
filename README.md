@@ -1,4 +1,4 @@
-# CorporateAuditChain - Enterprise Legal Discovery Platform
+# audit-trail- Enterprise Legal Discovery Platform
 
 **Production-ready audit trail system for corporate ActivityPub posts with immutable blockchain logging and legal discovery capabilities.**
 

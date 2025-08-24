@@ -1,0 +1,16 @@
+[package]
+name = "ImmutableFeed"
+version = "1.0.0"
+authors = ["ImmutableFeed Team"]
+
+[addresses]
+immutable_feed = "0x90dffdae708ad657475ff837177d9a57d0d4248cde9fa3f2ce81a0145c4aa9a6"
+
+[dev-addresses]
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-core.git"
+rev = "mainnet"
+subdir = "aptos-move/framework/aptos-framework"
+
+[dev-dependencies]

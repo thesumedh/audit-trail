@@ -1,0 +1,35 @@
+{
+  "name": "immutablefeed-backend",
+  "version": "1.0.0",
+  "description": "Move smart contracts for ImmutableFeed - Corporate Audit Chain",
+  "main": "index.js",
+  "scripts": {
+    "compile": "cd move && aptos move compile",
+    "test": "cd move && aptos move test",
+    "deploy": "cd move && aptos move publish --assume-yes",
+    "deploy-testnet": "cd move && aptos move publish --assume-yes --profile testnet",
+    "clean": "cd move && rm -rf build",
+    "init": "cd move && aptos init"
+  },
+  "keywords": [
+    "aptos",
+    "move",
+    "blockchain",
+    "smart-contracts",
+    "audit",
+    "immutable",
+    "ledger"
+  ],
+  "author": "ImmutableFeed Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/immutablefeed-backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/immutablefeed-backend/issues"
+  },
+  "homepage": "https://github.com/your-org/immutablefeed-backend#readme",
+  "devDependencies": {},
+  "dependencies": {}
+}

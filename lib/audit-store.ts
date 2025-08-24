@@ -1,4 +1,5 @@
-import jsPDF from 'jspdf';
+// Dynamic import to avoid SSR issues with jsPDF
+let jsPDF: any = null;
 
 interface AuditEntry {
   id: string;
@@ -25,6 +26,67 @@ interface ModificationRecord {
 class AuditStore {
   private entries: Map<string, AuditEntry> = new Map();
   private listeners: Set<() => void> = new Set();
+
+  constructor() {
+    this.initializeDemoData();
+  }
+
+  private initializeDemoData() {
+    // Create some demo audit entries to showcase the system
+    const demoEntries = [
+      {
+        id: "demo-1",
+        content: "Federal Reserve announces emergency rate cut to combat market volatility. This decision comes after extensive deliberation and consultation with major central banks worldwide.",
+        author: "financial.editor@newsorg.com",
+        txHash: "0xabc123456789def0123456789abcdef0123456789abcdef0123456789abcdef01"
+      },
+      {
+        id: "demo-2", 
+        content: "JPMorgan Chase reports strong Q4 results with net income of $15.2 billion, beating analyst estimates by 12%. The bank also announced a 15% dividend increase.",
+        author: "banking.reporter@newsorg.com",
+        txHash: "0xdef456789abc123456789abcdef0123456789abcdef0123456789abcdef012345"
+      },
+      {
+        id: "demo-3",
+        content: "Bitcoin surges past $75,000 as institutional adoption accelerates. BlackRock's Bitcoin ETF saw $2.1 billion in inflows this week alone.",
+        author: "crypto.analyst@newsorg.com", 
+        txHash: "0x123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef678"
+      }
+    ];
+
+    demoEntries.forEach((demo, index) => {
+      const timestamp = Date.now() - (index * 3600000); // Stagger by 1 hour each
+      const entry = this.createEntry(demo.id, demo.content, demo.author, demo.txHash);
+      
+      // Add some modifications to demonstrate audit trails
+      if (index === 0) {
+        // Simulate an edit to the first article
+        setTimeout(() => {
+          this.modifyEntry(demo.id, 
+            "Federal Reserve announces emergency rate cut of 0.75% to combat severe market volatility. This unprecedented decision comes after extensive deliberation and consultation with major central banks worldwide, reflecting the Fed's commitment to economic stability.",
+            "0x987654321fedcba0987654321fedcba0987654321fedcba0987654321fedcba09"
+          );
+        }, 100);
+      }
+      
+      if (index === 1) {
+        // Simulate multiple edits to show compliance violations
+        setTimeout(() => {
+          this.modifyEntry(demo.id,
+            "JPMorgan Chase reports exceptional Q4 results with net income of $15.2 billion, significantly beating analyst estimates by 12%. The bank also announced a substantial 15% dividend increase and new share buyback program.",
+            "0x456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef012378"
+          );
+        }, 200);
+        
+        setTimeout(() => {
+          this.modifyEntry(demo.id,
+            "JPMorgan Chase reports outstanding Q4 results with record net income of $15.2 billion, dramatically beating analyst estimates by 12%. The bank also announced a generous 15% dividend increase and aggressive $30 billion share buyback program.",
+            "0x789abcdef0123456789abcdef0123456789abcdef0123456789abcdef01234567"
+          );
+        }, 300);
+      }
+    });
+  }
 
   subscribe(callback: () => void) {
     this.listeners.add(callback);
@@ -182,15 +244,27 @@ Blockchain Address: 0x52a733d31afb82c3bdfa9a3bc85a9e44daadd2665860f2fa7064e559e4
     return report;
   }
 
-  downloadLegalPDF(entryId: string): void {
+  async downloadLegalPDF(entryId: string): Promise<void> {
     const entry = this.getEntry(entryId);
-    if (!entry) return;
+    if (!entry) {
+      alert('Entry not found');
+      return;
+    }
 
-    const pdf = new jsPDF();
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const margin = 20;
-    const lineHeight = 7;
-    let yPosition = margin;
+    try {
+      // Dynamic import to avoid SSR issues
+      if (!jsPDF) {
+        const jsPDFModule = await import('jspdf');
+        jsPDF = jsPDFModule.default;
+      }
+
+      const pdf = new jsPDF();
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const margin = 20;
+      const lineHeight = 7;
+      let yPosition = margin;
+
+      console.log('Generating PDF for entry:', entry);
 
     // Header
     pdf.setFontSize(20);
@@ -290,6 +364,9 @@ Blockchain Address: 0x52a733d31afb82c3bdfa9a3bc85a9e44daadd2665860f2fa7064e559e4
 
     // Download
     pdf.save(`legal-audit-report-${entryId}-${Date.now()}.pdf`);
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+    }
   }
 }
 

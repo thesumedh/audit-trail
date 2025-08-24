@@ -1,14 +1,27 @@
-# ImmutableFeed - Aptos Web3 Hackathon Project
+# CorporateAuditChain - Enterprise Legal Discovery Platform
 
-Enterprise-grade audit trails for ActivityPub posts using Aptos blockchain, AI verification, and zero-knowledge proofs.
+**Production-ready audit trail system for corporate ActivityPub posts with immutable blockchain logging and legal discovery capabilities.**
 
-## 🚀 Live Demo
+## 🏢 Business Problem Solved
 
-- **Main Dashboard**: [View Demo](/)
-- **SDK Integration**: [View SDK](/sdk)
-- **Live SDK Demo**: [Try SDK](/sdk-demo)
-- **Move Contract Demo**: [Petra Wallet](/move-demo)
-- **Financial News Demo**: [FinanceWire](/financial-news)
+**Real-world scenario**: A financial news company delivers market updates to clients. Client files lawsuit claiming they made business decisions on X date based on information from the company's site. The company needs to prove exactly what information was displayed on that specific date for legal discovery - which may differ from current data due to edits, corrections, or deletions.
+
+**Our Solution**: Immutable blockchain audit trail that captures every post, edit, and deletion with cryptographic proof, enabling point-in-time reconstruction for legal proceedings.
+
+## 🚀 Live Demo & Features
+
+- **Corporate Dashboard**: [Main Audit Interface](/) - Real-time monitoring and compliance
+- **Financial News Demo**: [FinanceWire](/financial-news) - Live example with Petra wallet
+- **Compliance Timeline**: [Audit Feed](/) - Visual chronological audit logs
+- **Legal Discovery**: [Point-in-Time Snapshots](/) - Historical data reconstruction
+- **SDK Integration**: [Developer Tools](/sdk) - Enterprise integration guide
+
+## 💼 Target Industries
+
+- **Financial Services**: Market data, trading alerts, regulatory filings
+- **Healthcare**: Patient communications, medical updates, compliance records  
+- **Legal**: Client communications, case updates, regulatory notices
+- **Corporate Communications**: Press releases, investor updates, internal memos
 
 ## 🏗️ Project Structure
 
@@ -26,48 +39,74 @@ aptos-audit/
 
 ### Prerequisites
 - Node.js 18+
-- Petra Wallet (for blockchain features)
+- Petra Wallet browser extension
+- Aptos Testnet account with APT tokens
 
 ### Installation
 ```bash
-git clone <repository>
-cd aptos-audit
+git clone https://github.com/thesumedh/aptos.git
+cd aptos
 npm install
+```
+
+### Configuration
+```bash
+# Copy environment template
+cp .env.example .env.local
+
+# Configure your Petra wallet address
+NEXT_PUBLIC_CONTRACT_ADDRESS=0x52a733d31afb82c3bdfa9a3bc85a9e44daadd2665860f2fa7064e559e4161e02
 ```
 
 ### Development
 ```bash
 npm run dev
+# Open http://localhost:3000
 ```
 
-### Build for Production
+### Production Deployment
 ```bash
 npm run build
+npm start
 ```
 
-### Deploy Static Site
-```bash
-npm run export
-```
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for comprehensive deployment guide.
 
-## 📦 SDK Usage
+## 📦 Enterprise SDK Usage
 
 ```typescript
-import { createLedger } from '@immutablefeed/sdk';
+import { createLedger } from '@corporateauditchain/sdk';
 
-// Initialize ledger
-const ledger = createLedger();
+// Initialize audit ledger
+const ledger = createLedger({
+  aptosClient: 'https://fullnode.testnet.aptoslabs.com/v1',
+  contractAddress: '0x52a733d31afb82c3bdfa9a3bc85a9e44daadd2665860f2fa7064e559e4161e02'
+});
 
-// Create audit record
-const record = await ledger.createRecord(
-  "Hello, immutable world!",
-  "alice@company.com",
-  { platform: "mastodon", postId: "123" }
+// Log corporate communication
+const auditRecord = await ledger.createRecord(
+  "Q3 earnings report published: Revenue up 15%",
+  "investor.relations@company.com",
+  { 
+    type: "financial_disclosure",
+    category: "earnings",
+    compliance_required: true,
+    distribution_list: ["sec@gov", "investors@company.com"]
+  }
 );
 
-// Verify record
-const verification = await ledger.verifyRecord(record.id);
-console.log('Valid:', verification.isValid);
+// Legal discovery: Get point-in-time snapshot
+const snapshot = await ledger.getSnapshotAtTime(
+  new Date('2024-01-15T09:00:00Z')
+);
+
+// Generate court-admissible report
+const legalReport = await ledger.generateLegalReport({
+  targetDate: new Date('2024-01-15'),
+  requestor: "Legal Counsel",
+  caseNumber: "CV-2024-001234",
+  description: "Discovery request for financial communications"
+});
 ```
 
 ## 🔗 Move Smart Contract

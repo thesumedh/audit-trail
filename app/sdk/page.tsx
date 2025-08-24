@@ -1,5 +1,5 @@
-import { SDKDemosDashboard } from "../../components/sdk-demo-dashboard";
+import { SDKDocumentation } from "../../components/sdk-documentation";
 
 export default function SDKPage() {
-  return <SDKDemosDashboard />;
+  return <SDKDocumentation />;
 }

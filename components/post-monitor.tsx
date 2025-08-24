@@ -37,7 +37,7 @@ interface MonitorStatus {
 export function PostMonitor() {
   const { connected, submitTransaction } = useAptos()
   const [posts, setPosts] = useState<MonitoredPost[]>([])
-  const [isMonitoring, setIsMonitoring] = useState(false)
+  const [isMonitoring, setIsMonitoring] = useState(true)
   const [monitorStatus, setMonitorStatus] = useState<MonitorStatus>({
     monitoredPosts: 0,
     instances: 0,
@@ -45,6 +45,116 @@ export function PostMonitor() {
   })
   const [newInstanceUrl, setNewInstanceUrl] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+
+  // Initialize with demo data
+  useEffect(() => {
+    const demoData: MonitoredPost[] = [
+      {
+        id: "post-1",
+        activityPubId: "https://mastodon.social/@financenews/123456789",
+        author: "@financenews@mastodon.social",
+        content: "🚨 BREAKING: Federal Reserve announces emergency 0.75% rate cut following market volatility. This unprecedented move aims to provide liquidity and stability to financial markets during uncertain times. #Fed #Economy #BreakingNews",
+        contentHash: "sha256:a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6",
+        timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+        status: "active",
+        modificationHistory: [
+          {
+            timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+            content: "🚨 BREAKING: Federal Reserve announces emergency 0.75% rate cut following market volatility. This unprecedented move aims to provide liquidity and stability to financial markets during uncertain times. #Fed #Economy #BreakingNews",
+            action: "created"
+          }
+        ],
+        verificationStatus: "verified",
+        txHash: "0xabc123456789def0123456789abcdef0123456789abcdef0123456789abcdef01"
+      },
+      {
+        id: "post-2",
+        activityPubId: "https://mastodon.social/@techreporter/987654321",
+        author: "@techreporter@mastodon.social", 
+        content: "📈 Apple, Microsoft, and Google all exceeded Q4 earnings expectations! Apple: $123.9B revenue (+8% YoY), Microsoft Azure: +30% growth, Google ads revenue rebounded strongly. Tech sector showing resilience! #Earnings #Tech #Stocks",
+        contentHash: "sha256:b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7",
+        timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(),
+        lastModified: new Date(Date.now() - 1 * 60 * 60 * 1000).toISOString(),
+        status: "modified",
+        originalContent: "📈 Apple, Microsoft, and Google exceeded Q4 earnings expectations! Strong performance across the board. #Earnings #Tech",
+        modificationHistory: [
+          {
+            timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(),
+            content: "📈 Apple, Microsoft, and Google exceeded Q4 earnings expectations! Strong performance across the board. #Earnings #Tech",
+            action: "created"
+          },
+          {
+            timestamp: new Date(Date.now() - 1 * 60 * 60 * 1000).toISOString(),
+            content: "📈 Apple, Microsoft, and Google all exceeded Q4 earnings expectations! Apple: $123.9B revenue (+8% YoY), Microsoft Azure: +30% growth, Google ads revenue rebounded strongly. Tech sector showing resilience! #Earnings #Tech #Stocks",
+            action: "updated"
+          }
+        ],
+        verificationStatus: "verified",
+        txHash: "0xdef456789abc123456789abcdef0123456789abcdef0123456789abcdef012345"
+      },
+      {
+        id: "post-3",
+        activityPubId: "https://mastodon.social/@cryptoanalyst/555666777",
+        author: "@cryptoanalyst@mastodon.social",
+        content: "🚀 Bitcoin hits new ATH of $75,240! Institutional adoption accelerating with BlackRock ETF seeing $2.1B inflows this week. MicroStrategy adds another $500M to their stack. The institutional FOMO is real! #Bitcoin #Crypto #ATH",
+        contentHash: "sha256:c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8",
+        timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(),
+        status: "active",
+        modificationHistory: [
+          {
+            timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(),
+            content: "🚀 Bitcoin hits new ATH of $75,240! Institutional adoption accelerating with BlackRock ETF seeing $2.1B inflows this week. MicroStrategy adds another $500M to their stack. The institutional FOMO is real! #Bitcoin #Crypto #ATH",
+            action: "created"
+          }
+        ],
+        verificationStatus: "verified",
+        txHash: "0x123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef678"
+      },
+      {
+        id: "post-4",
+        activityPubId: "https://mastodon.social/@bankinginsider/111222333",
+        author: "@bankinginsider@mastodon.social",
+        content: "🏦 JPMorgan Chase crushes Q4 expectations with $15.2B net income (+12% vs estimates). CEO Jamie Dimon announces 15% dividend increase and $30B share buyback program. Banking sector strength continues! #JPM #Banking #Earnings",
+        contentHash: "sha256:d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9",
+        timestamp: new Date(Date.now() - 8 * 60 * 60 * 1000).toISOString(),
+        status: "active",
+        modificationHistory: [
+          {
+            timestamp: new Date(Date.now() - 8 * 60 * 60 * 1000).toISOString(),
+            content: "🏦 JPMorgan Chase crushes Q4 expectations with $15.2B net income (+12% vs estimates). CEO Jamie Dimon announces 15% dividend increase and $30B share buyback program. Banking sector strength continues! #JPM #Banking #Earnings",
+            action: "created"
+          }
+        ],
+        verificationStatus: "pending",
+        txHash: "0x456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef012378"
+      },
+      {
+        id: "post-5",
+        activityPubId: "https://mastodon.social/@supplychainexpert/444555666",
+        author: "@supplychainexpert@mastodon.social",
+        content: "📦 Global supply chain disruptions finally easing! Shipping costs down 45% from 2023 peaks. Baltic Dry Index normalizing. Walmart & Target report improved inventory levels. Lower consumer prices ahead? #SupplyChain #Logistics #Economy",
+        contentHash: "sha256:e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0",
+        timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString(),
+        status: "active",
+        modificationHistory: [
+          {
+            timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString(),
+            content: "📦 Global supply chain disruptions finally easing! Shipping costs down 45% from 2023 peaks. Baltic Dry Index normalizing. Walmart & Target report improved inventory levels. Lower consumer prices ahead? #SupplyChain #Logistics #Economy",
+            action: "created"
+          }
+        ],
+        verificationStatus: "verified",
+        txHash: "0x789abcdef0123456789abcdef0123456789abcdef0123456789abcdef01234567"
+      }
+    ];
+
+    setPosts(demoData);
+    setMonitorStatus({
+      monitoredPosts: demoData.length,
+      instances: 3,
+      lastSync: new Date().toLocaleString(),
+    });
+  }, [])
 
   const fetchPosts = useCallback(async () => {
     try {
@@ -117,14 +227,17 @@ export function PostMonitor() {
 
     const payload = {
       type: "entry_function_payload",
-      function: "0x1::audit_trail::log_post_with_history",
+      function: "0x52a733d31afb82c3bdfa9a3bc85a9e44daadd2665860f2fa7064e559e4161e02::ledger::add_entry",
       arguments: [
-        post.activityPubId,
         post.content,
-        post.author,
-        Math.floor(new Date(post.timestamp).getTime() / 1000).toString(),
-        post.status,
-        JSON.stringify(post.modificationHistory),
+        "",
+        JSON.stringify({
+          activityPubId: post.activityPubId,
+          author: post.author,
+          timestamp: Math.floor(new Date(post.timestamp).getTime() / 1000),
+          status: post.status,
+          modificationHistory: post.modificationHistory,
+        }),
       ],
       type_arguments: [],
     }

@@ -1,258 +1,349 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Shield, AlertTriangle, DollarSign, Clock, CheckCircle, Building2, Users, Scale, Lock, Eye, FileText } from "lucide-react"
-import { ThreeDBackground } from "../../components/3d-background"
+import { motion } from "framer-motion";
+import { Shield, Lock, FileText, Eye, TrendingUp, Globe, Zap, CheckCircle, ArrowRight, Users, Building, Award } from "lucide-react";
+import { Button } from "../../components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card";
+import Link from "next/link";
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 60 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6 }
+};
+
+const staggerContainer = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
 
 export default function EnterprisePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30">
-      <ThreeDBackground />
-      <div className="container mx-auto px-4 py-16 relative z-10">
-        
-        {/* Hero Section */}
-        <div className="text-center mb-20">
-          <div className="flex items-center justify-center mb-8">
-            <div className="p-6 bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 shadow-2xl">
-              <Shield className="h-16 w-16 text-blue-400" />
-            </div>
-          </div>
-          <h1 className="text-6xl font-bold text-white mb-6 tracking-tight">
-            Audit Trail
-          </h1>
-          <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-            Enterprise-grade compliance infrastructure built for the modern enterprise
-          </p>
-          <div className="flex gap-4 justify-center">
-            <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4">
-              Request Proposal
-            </Button>
-            <Button size="lg" variant="outline" className="border-slate-600 text-slate-300 hover:bg-slate-800 px-8 py-4">
-              Schedule Demo
-            </Button>
-          </div>
-        </div>
+    <div className="min-h-screen bg-black text-white">
+      {/* Hero Section */}
+      <section className="relative pt-20 pb-32">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
 
-        {/* Key Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-20">
-          <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-colors">
-            <CardContent className="p-6 text-center">
-              <div className="p-3 bg-red-500/10 rounded-lg w-fit mx-auto mb-4">
-                <AlertTriangle className="h-8 w-8 text-red-500" />
+        <div className="relative z-10 container mx-auto px-6">
+          <motion.div 
+            className="text-center max-w-4xl mx-auto"
+            initial="initial"
+            animate="animate"
+            variants={staggerContainer}
+          >
+            <motion.div variants={fadeInUp} className="mb-6">
+              <div className="inline-flex items-center gap-3 bg-gray-900/80 border border-gray-700 rounded-lg px-6 py-3">
+                <Building className="w-5 h-5 text-gray-300" />
+                <span className="text-gray-300 font-medium">Legal Enterprise Solutions</span>
               </div>
-              <div className="text-3xl font-bold text-red-500 mb-2">$4.2B</div>
-              <div className="text-sm text-muted-foreground">Risk Eliminated</div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-colors">
-            <CardContent className="p-6 text-center">
-              <div className="p-3 bg-green-500/10 rounded-lg w-fit mx-auto mb-4">
-                <Clock className="h-8 w-8 text-green-500" />
-              </div>
-              <div className="text-3xl font-bold text-green-500 mb-2">2 sec</div>
-              <div className="text-sm text-muted-foreground">Audit Speed</div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-colors">
-            <CardContent className="p-6 text-center">
-              <div className="p-3 bg-blue-500/10 rounded-lg w-fit mx-auto mb-4">
-                <Shield className="h-8 w-8 text-blue-500" />
-              </div>
-              <div className="text-3xl font-bold text-blue-500 mb-2">100%</div>
-              <div className="text-sm text-muted-foreground">Court Ready</div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-colors">
-            <CardContent className="p-6 text-center">
-              <div className="p-3 bg-purple-500/10 rounded-lg w-fit mx-auto mb-4">
-                <DollarSign className="h-8 w-8 text-purple-500" />
-              </div>
-              <div className="text-3xl font-bold text-purple-500 mb-2">$1.8M</div>
-              <div className="text-sm text-muted-foreground">Annual ROI</div>
-            </CardContent>
-          </Card>
-        </div>
+            </motion.div>
 
-        {/* Core Features */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-          <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700/50 hover:bg-slate-800/70 transition-all">
-            <CardHeader className="pb-4">
-              <div className="p-3 bg-green-500/10 rounded-lg w-fit mb-4">
-                <CheckCircle className="h-10 w-10 text-green-400" />
-              </div>
-              <CardTitle className="text-white text-xl">Immutable Evidence</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-slate-300 mb-4">
-                Cryptographically secured records that stand up in court. Every audit trail is tamper-proof and legally admissible.
-              </p>
-              <Badge className="bg-green-500/20 text-green-300 border-green-500/30">
-                Legal Grade
-              </Badge>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700/50 hover:bg-slate-800/70 transition-all">
-            <CardHeader className="pb-4">
-              <div className="p-3 bg-blue-500/10 rounded-lg w-fit mb-4">
-                <Eye className="h-10 w-10 text-blue-400" />
-              </div>
-              <CardTitle className="text-white text-xl">Real-Time Monitoring</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-slate-300 mb-4">
-                Continuous compliance monitoring with instant alerts. Know about violations before regulators do.
-              </p>
-              <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30">
-                24/7 Active
-              </Badge>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700/50 hover:bg-slate-800/70 transition-all">
-            <CardHeader className="pb-4">
-              <div className="p-3 bg-purple-500/10 rounded-lg w-fit mb-4">
-                <Lock className="h-10 w-10 text-purple-400" />
-              </div>
-              <CardTitle className="text-white text-xl">Enterprise Security</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-slate-300 mb-4">
-                Military-grade encryption with zero-trust architecture. Your data remains private and secure.
-              </p>
-              <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30">
-                SOC2 Type II
-              </Badge>
-            </CardContent>
-          </Card>
-        </div>
+            <motion.h1 
+              variants={fadeInUp}
+              className="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight tracking-tight"
+            >
+              Enterprise Legal
+              <br />
+              <span className="text-gray-400">Evidence Platform</span>
+            </motion.h1>
 
-        {/* Industry Solutions */}
-        <div className="mb-20">
-          <h2 className="text-3xl font-bold text-white text-center mb-12">
-            Trusted by Regulated Industries
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700/50 hover:bg-slate-800/70 transition-all">
-              <CardHeader>
-                <div className="p-4 bg-blue-500/10 rounded-xl w-fit mb-4">
-                  <Building2 className="h-12 w-12 text-blue-400" />
-                </div>
-                <CardTitle className="text-white text-xl">Financial Services</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="text-slate-300 space-y-2 mb-6">
-                  <li className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full"></div>
-                    SOX compliance automation
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full"></div>
-                    SEC audit trail management
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full"></div>
-                    Anti-money laundering tracking
-                  </li>
-                </ul>
-                <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30">
-                  SEC Compliant
-                </Badge>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700/50 hover:bg-slate-800/70 transition-all">
-              <CardHeader>
-                <div className="p-4 bg-green-500/10 rounded-xl w-fit mb-4">
-                  <Users className="h-12 w-12 text-green-400" />
-                </div>
-                <CardTitle className="text-white text-xl">Healthcare</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="text-slate-300 space-y-2 mb-6">
-                  <li className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
-                    HIPAA compliance monitoring
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
-                    Patient record integrity
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
-                    Clinical trial documentation
-                  </li>
-                </ul>
-                <Badge className="bg-green-500/20 text-green-300 border-green-500/30">
-                  HIPAA Ready
-                </Badge>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700/50 hover:bg-slate-800/70 transition-all">
-              <CardHeader>
-                <div className="p-4 bg-purple-500/10 rounded-xl w-fit mb-4">
-                  <Scale className="h-12 w-12 text-purple-400" />
-                </div>
-                <CardTitle className="text-white text-xl">Enterprise</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="text-slate-300 space-y-2 mb-6">
-                  <li className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
-                    Corporate governance
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
-                    Board meeting records
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
-                    Executive communications
-                  </li>
-                </ul>
-                <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30">
-                  SOX Certified
-                </Badge>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-xl text-gray-300 mb-12 leading-relaxed"
+            >
+              Comprehensive blockchain verification platform designed for law firms, 
+              regulatory bodies, and enterprises requiring court-admissible evidence standards.
+            </motion.p>
 
-        {/* CTA Section */}
-        <Card className="bg-gradient-to-r from-slate-800 to-slate-700 border-slate-600">
-          <CardContent className="p-12 text-center">
-            <div className="p-4 bg-blue-500/10 rounded-2xl w-fit mx-auto mb-6">
-              <FileText className="h-16 w-16 text-blue-400" />
-            </div>
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Ready for Enterprise Compliance?
+            <motion.div 
+              variants={fadeInUp}
+              className="flex flex-col sm:flex-row gap-6 justify-center"
+            >
+              <Button size="lg" className="bg-white text-black hover:bg-gray-100 px-10 py-4 text-lg font-semibold">
+                Schedule Consultation
+                <ArrowRight className="ml-3 w-5 h-5" />
+              </Button>
+              <Link href="/dashboard">
+                <Button variant="outline" size="lg" className="border-gray-600 text-gray-300 hover:bg-gray-900 hover:border-gray-500 px-10 py-4 text-lg">
+                  View Evidence Platform
+                </Button>
+              </Link>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Enterprise Features */}
+      <section className="py-24 bg-slate-800/30">
+        <div className="container mx-auto px-6">
+          <motion.div 
+            className="text-center mb-16"
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
+            <motion.h2 variants={fadeInUp} className="text-4xl font-bold text-white mb-6">
+              Complete Enterprise Platform
+            </motion.h2>
+            <motion.p variants={fadeInUp} className="text-xl text-slate-300 max-w-3xl mx-auto">
+              Everything your organization needs for blockchain-verified financial communications
+            </motion.p>
+          </motion.div>
+
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
+            <motion.div variants={fadeInUp}>
+              <Card className="bg-slate-800/50 border-slate-700/50 hover:border-teal-500/50 transition-colors h-full">
+                <CardHeader>
+                  <div className="w-12 h-12 bg-teal-500/20 rounded-lg flex items-center justify-center mb-4">
+                    <FileText className="w-6 h-6 text-teal-400" />
+                  </div>
+                  <CardTitle className="text-white">Compliance Feed</CardTitle>
+                  <CardDescription className="text-slate-400">
+                    Visual chronological log displaying all anchored events for specific entities. 
+                    Perfect for investigators and compliance officers.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 text-sm text-slate-300">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-emerald-400" />
+                      Real-time event tracking
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-emerald-400" />
+                      Regulatory compliance reports
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-emerald-400" />
+                      Audit-ready documentation
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div variants={fadeInUp}>
+              <Card className="bg-slate-800/50 border-slate-700/50 hover:border-emerald-500/50 transition-colors h-full">
+                <CardHeader>
+                  <div className="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center mb-4">
+                    <Eye className="w-6 h-6 text-emerald-400" />
+                  </div>
+                  <CardTitle className="text-white">Legal Discovery</CardTitle>
+                  <CardDescription className="text-slate-400">
+                    Transform raw immutable data into understandable narratives for legal proceedings 
+                    and regulatory investigations.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 text-sm text-slate-300">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-emerald-400" />
+                      Immutable evidence trails
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-emerald-400" />
+                      Cryptographic proof
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-emerald-400" />
+                      Legal-ready reports
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div variants={fadeInUp}>
+              <Card className="bg-slate-800/50 border-slate-700/50 hover:border-blue-500/50 transition-colors h-full">
+                <CardHeader>
+                  <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
+                    <TrendingUp className="w-6 h-6 text-blue-400" />
+                  </div>
+                  <CardTitle className="text-white">Real-time Monitoring</CardTitle>
+                  <CardDescription className="text-slate-400">
+                    24/7 monitoring of financial communications with instant blockchain verification 
+                    and alert systems.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 text-sm text-slate-300">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-emerald-400" />
+                      Instant verification
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-emerald-400" />
+                      Custom alert rules
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-emerald-400" />
+                      Multi-channel monitoring
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Enterprise Benefits */}
+      <section className="py-24">
+        <div className="container mx-auto px-6">
+          <motion.div 
+            className="text-center mb-16"
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+          >
+            <h2 className="text-4xl font-bold text-white mb-6">
+              Why Leading Enterprises Choose Us
             </h2>
-            <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-              Join Fortune 500 companies using Audit Trail to eliminate compliance risk and reduce audit costs.
+            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+              Proven results for financial institutions, regulatory bodies, and global enterprises
             </p>
-            <div className="flex gap-4 justify-center mb-8">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4">
-                Request Enterprise Proposal
-              </Button>
-              <Button size="lg" variant="outline" className="border-slate-500 text-slate-300 hover:bg-slate-700 px-8 py-4">
-                Schedule Executive Demo
-              </Button>
-            </div>
-            <div className="flex justify-center gap-6 text-sm text-slate-400">
-              <span>• SOC2 Type II Certified</span>
-              <span>• 99.9% Uptime SLA</span>
-              <span>• 24/7 Enterprise Support</span>
-            </div>
-          </CardContent>
-        </Card>
+          </motion.div>
 
-      </div>
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16"
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
+            <motion.div variants={fadeInUp} className="text-center">
+              <div className="w-16 h-16 bg-teal-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="w-8 h-8 text-teal-400" />
+              </div>
+              <div className="text-3xl font-bold text-white mb-2">500+</div>
+              <div className="text-slate-400">Enterprise Clients</div>
+            </motion.div>
+
+            <motion.div variants={fadeInUp} className="text-center">
+              <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Shield className="w-8 h-8 text-emerald-400" />
+              </div>
+              <div className="text-3xl font-bold text-white mb-2">99.9%</div>
+              <div className="text-slate-400">Uptime SLA</div>
+            </motion.div>
+
+            <motion.div variants={fadeInUp} className="text-center">
+              <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Award className="w-8 h-8 text-blue-400" />
+              </div>
+              <div className="text-3xl font-bold text-white mb-2">SOC 2</div>
+              <div className="text-slate-400">Type II Certified</div>
+            </motion.div>
+          </motion.div>
+
+          <motion.div 
+            className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
+            <motion.div variants={fadeInUp}>
+              <h3 className="text-3xl font-bold text-white mb-6">
+                Regulatory Compliance Made Simple
+              </h3>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-emerald-400 mt-1 flex-shrink-0" />
+                  <div>
+                    <div className="text-white font-semibold">SEC & FINRA Ready</div>
+                    <div className="text-slate-400">Pre-configured for financial regulatory requirements</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-emerald-400 mt-1 flex-shrink-0" />
+                  <div>
+                    <div className="text-white font-semibold">MiFID II Compliance</div>
+                    <div className="text-slate-400">European regulatory framework support</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-emerald-400 mt-1 flex-shrink-0" />
+                  <div>
+                    <div className="text-white font-semibold">Automated Reporting</div>
+                    <div className="text-slate-400">Generate compliance reports automatically</div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div variants={fadeInUp}>
+              <Card className="bg-slate-800/50 border-slate-700/50">
+                <CardHeader>
+                  <CardTitle className="text-white">Enterprise Deployment Options</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between p-3 bg-slate-700/30 rounded">
+                    <span className="text-slate-300">Cloud Deployment</span>
+                    <CheckCircle className="w-5 h-5 text-emerald-400" />
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-slate-700/30 rounded">
+                    <span className="text-slate-300">On-Premise Installation</span>
+                    <CheckCircle className="w-5 h-5 text-emerald-400" />
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-slate-700/30 rounded">
+                    <span className="text-slate-300">Hybrid Architecture</span>
+                    <CheckCircle className="w-5 h-5 text-emerald-400" />
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-slate-700/30 rounded">
+                    <span className="text-slate-300">API Integration</span>
+                    <CheckCircle className="w-5 h-5 text-emerald-400" />
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 bg-slate-800/30">
+        <div className="container mx-auto px-6 text-center">
+          <motion.div 
+            className="max-w-4xl mx-auto"
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
+            <motion.h2 variants={fadeInUp} className="text-4xl font-bold text-white mb-6">
+              Ready to Transform Your Compliance Strategy?
+            </motion.h2>
+            <motion.p variants={fadeInUp} className="text-xl text-slate-300 mb-12">
+              Join the leading financial institutions already using blockchain verification 
+              to ensure data integrity and regulatory compliance.
+            </motion.p>
+            <motion.div 
+              variants={fadeInUp}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
+              <Button size="lg" className="bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white px-8 py-4 text-lg font-semibold">
+                Schedule Enterprise Demo
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+              <Button variant="outline" size="lg" className="border-slate-600 text-slate-300 hover:bg-slate-800 px-8 py-4 text-lg">
+                Download White Paper
+              </Button>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
     </div>
-  )
+  );
 }
